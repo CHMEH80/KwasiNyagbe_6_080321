@@ -1,0 +1,22 @@
+{
+  "name": "kwasi-p6",
+  "version": "1.0.0",
+  "description": "KwasiNyagbe_6_080321",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CHMEH80/KwasiNyagbe_6_080321.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CHMEH80/KwasiNyagbe_6_080321/issues"
+  },
+  "homepage": "https://github.com/CHMEH80/KwasiNyagbe_6_080321#readme",
+  "devDependencies": {
+    "eslint": "^7.21.0"
+  }
+}

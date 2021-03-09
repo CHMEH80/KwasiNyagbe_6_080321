@@ -1,0 +1,102 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "es2020": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "rules": {
+    "eqeqeq": "warn",
+    "indent": [
+      "warn",
+      4,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "linebreak-style": [
+      "warn",
+      "windows"
+    ],
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "no-unused-vars": "warn",
+    "semi": [
+      "error",
+      "always"
+    ],
+    "complexity": [
+      "warn"
+    ],
+    "default-case": [
+      "warn",
+      {
+        "commentPattern": null
+      }
+    ],
+    "no-constructor-return": [
+      "warn"
+    ],
+    "no-else-return": [
+      "warn",
+      {
+        "allowElseIf": true
+      }
+    ],
+    "no-empty-function": [
+      "warn",
+      {
+        "allow": null
+      }
+    ],
+    "no-extra-bind": [
+      "warn"
+    ],
+    "no-implicit-coercion": [
+      "warn",
+      {
+        "boolean": true,
+        "number": true,
+        "string": true,
+        "allow": null
+      }
+    ],
+    "generator-star-spacing": [
+      "warn"
+    ],
+    "no-useless-constructor": [
+      "warn"
+    ],
+    "no-useless-rename": [
+      "warn",
+      null
+    ],
+    "prefer-const": [
+      "warn",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": false
+      }
+    ],
+    "strict": [
+      "warn",
+      null
+    ],
+    "no-delete-var": [
+      "off"
+    ]
+  }
+}
