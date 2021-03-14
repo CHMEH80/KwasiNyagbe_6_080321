@@ -11,6 +11,6 @@ module.exports = (req,res,next) => {
             +"posséder au moins un chiffre, une lettre majuscule et minuscule et l'un des caractères spéciaux suivants: @$!%*?&."});
         }
     } else {
-        res.status(400).json({ message: "Le login doit être une adresse email valide !"});
+        res.status(400).json({ message: 'Le login doit être une adresse email valide !'});
     }
 }

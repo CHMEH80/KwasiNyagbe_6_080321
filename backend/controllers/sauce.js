@@ -34,7 +34,7 @@ exports.createSauce = (req,res,next) => {
     }
 };
 
-// Récupération de toutes les sauces
+// Récupération de toutes les sauces crées
 exports.getAllSauces = (req,res,next) => {
     Sauce.find()
     .then(sauces => {

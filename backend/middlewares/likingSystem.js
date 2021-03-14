@@ -5,7 +5,7 @@ module.exports = (req,res,next) => {
     let message = "";
     Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
-        if(req.body.like==1 && sauce.usersLiked.indexOf(req.body.userId)<0) {
+        if(req.body.like ==1 && sauce.usersLiked.indexOf(req.body.userId)<0) {
             sauce.usersLiked.push(req.body.userId);
             sauce.likes+=1;
             message = "Vous aimez la sauce "+sauce.name+"!";
