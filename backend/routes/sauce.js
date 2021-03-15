@@ -18,6 +18,7 @@ const deletePictureNoConformForm = require('../middlewares/deletePictureNoConfor
 router.post('/', auth, multer, checkCreateForm, sauceController.createSauce, deletePictureNoConformForm);
 router.post('/:id/like', auth, likingAllgo, sauceController.likeOneSauce);
 router.get('/', auth, sauceController.getAllSauces);
+// route dynamique
 router.get('/:id', auth, sauceController.getOneSauce);
 router.put('/:id', auth, multer, getOldPicture, checkCreateForm, sauceController.modifyOneSauce, deletePictureNoConformForm);
 router.delete('/:id', auth, sauceController.deleteSauce);

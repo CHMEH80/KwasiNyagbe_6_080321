@@ -1,9 +1,10 @@
-// Plugin npm de Node.js pour la base de données
+// Import de mongoose pour la création du schéma des sauces
 
 const mongoose = require('mongoose');
+
 const mongooseUniqueValidator = require('mongoose-unique-validator');
 
-// Modèles de sauces avec le type de données
+// Fonction shema de mongoose à laquelle on va passer un objet qui contiendra les différents champs requis que notre schema aura besoin
 const sauceSchema = mongoose.Schema ({
     userId: { type: String, required: true },
     name: { type: String, required: true, unique: true},
@@ -20,4 +21,5 @@ const sauceSchema = mongoose.Schema ({
 
 sauceSchema.plugin(mongooseUniqueValidator);
 
+// export du modèle terminé  et de ses arguments pour puvoir l'utiliser dans la base de données
 module.exports = mongoose.model('Sauce', sauceSchema);

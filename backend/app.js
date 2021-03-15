@@ -1,7 +1,12 @@
 
-// Plugin Npm Node.js
+// Import de différents Plugins Npm Node.js
+// package express pour lancer le serveur
 const express = require('express');
+
+// package Body-parser pour rendre plus exploitable le corps des requêtes
 const bodyParser = require('body-parser');
+
+// base de donées à laquelle l'Api est liée pour la rendre totalement dynamique
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 const path = require('path');
@@ -24,21 +29,26 @@ const userRoutes = require('./routes/user');
 // Utilisation du Framework Express
 const app = express();
 
-// Middleware pour les headers de requêtes et éviter les erreurs CORS
+// Middleware pour les headers de requêtes et éviter les erreurs CORS (une sécurité qui empêche les reqêtes mailleveilantes)
+// Ces middlewares seront appliqués à toutes les routes de l'application
+
 app.use((req, res, next) => {
+// rajout des headers pour permettre que tous les utilisateur depuis n'importe quel navigateur puissent faire les requêtes nécessaires pour accéder à notre api  
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+// accorde l'utilisation de certains métodes     
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+// passe l'exécution à la fonction suivante
     next();
 });
 
-// Traitement des sonnées par BodyParser 
+// Traitement des sonnées par BodyParser pour donner accès au corps de la requête
 app.use(bodyParser.json());
 // Chemin virtuel pour les fichiers statiques tel que nos images
 app.use('/images', express.static(path.join(__dirname, 'images')));
-// Url des routes
+// Url des routes auquels l'aplication front fera appel
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
-
+// export de la constante app pour accès depuis les autre fichiers
 module.exports = app;
