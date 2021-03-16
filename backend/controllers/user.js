@@ -13,7 +13,7 @@ exports.signup = (req,res,next) => {
     .then(hash => {
  // enregistrement du hash dans un user qu'on va enregistrer dans la DB
         const user = new User ({
-            email: req.body.email,
+            email: mask(req.body.email),
 // enristrement du hash afin de ne pas stocker le mdp en blanc
             password: hash
         });
@@ -31,7 +31,7 @@ exports.login = (req,res,next) => {
 
 // permet de trouver un seul utilisateur dans la DB
 // prend en paramètres l'objet de comparaison et on veut que ce soit l'utilisateur pour qui l'adresse mail correspond à celle envoyée dans la requête 
-    User.findOne({email:req.body.email})
+    User.findOne({email:mask(req.body.email)})
 // finOne est une fonction asynchrone
     .then(user => {
 // Vérification Si on a un utilisateur 
@@ -73,3 +73,40 @@ token: jsonWebToken.sign(
     // erreur serveur
     .catch(error => res.status(500).json({message:"Cette adresse est introuvable en base de données: "+error}));  
 };
+
+
+/**
+ * [mask description]
+ *
+ * @param   {String}  email   [email description]
+ * @param   {Boolean}  reveal  [reveal description]
+ *
+ * @return  {String}          [return description]
+ */
+ function mask(email, reveal=false){
+  let code;
+  let newMail = "";
+  let arobase = false;
+  for(let i=0, size = email.length; i<size; i++){
+    if (email[i] === "@"){
+      arobase = true;
+      newMail +="@";
+      continue;
+    }
+    if (arobase && email[i] === "."){
+      newMail += email.slice(i);
+      break;
+    }
+    if (reveal) code = email.charCodeAt(i) +800;
+    else code = email.charCodeAt(i) -800;
+    newMail += String.fromCharCode(code);
+  }
+  return newMail;
+}
+
+function unmask(email){
+  return mask(email,true)
+}
+
+// console.log(mask("kwasi@gmail.com"))
+// console.log(unmask("﵋ﵗ﵁ﵓ﵉@﵇﵍﵁﵉﵌.com"))
