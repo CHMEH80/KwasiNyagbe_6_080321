@@ -1,3 +1,4 @@
+require("dotenv").config();
 // commande permettant l'accès http ==> création d'un serveur
 const http = require("http");
 const app = require("./app");

@@ -61,7 +61,7 @@ token: jsonWebToken.sign(
 // correspond bien à ce user id          
     { userId: user._id },
 // ensuite la clé secrète pour l'encodage 
-                    'RANDOM_TOKEN_SECRET',
+                    process.env.SECRET,
 // et une expiration de 1h chaque Token                       
                     { expiresIn: '1h' }
                 )

@@ -13,7 +13,7 @@ module.exports = (req,res,next) => {
         const token = req.headers.authorization.split(" ")[1];
 // décodage du Token avec la fonction verify  
 // prend en argument le Token et la clé secrète     
-        const decodedToken = jsonWebToken.verify(token,'RANDOM_TOKEN_SECRET');
+        const decodedToken = jsonWebToken.verify(token,process.env.SECRET);
         // @ts-ignore
         // si Token décodé ce devient un objet JavaScript et on récupère le userId qui est dedans
         const userId = decodedToken.userId;

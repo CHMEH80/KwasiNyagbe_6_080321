@@ -3,16 +3,17 @@
 // package express pour lancer le serveur
 const express = require('express');
 
-// package Body-parser pour rendre plus exploitable le corps des requêtes
-const bodyParser = require('body-parser');
-
 // base de donées à laquelle l'Api est liée pour la rendre totalement dynamique
-const mongoose = require('mongoose');
+const ddos        = require('ddos')({burst:10, limit:15});
+const helmet      = require("helmet");
+const mongoose    = require('mongoose');
+const path        = require('path');
 mongoose.set('useCreateIndex', true);
-const path = require('path');
+
+
 
 // Connection à la base de donnée Mongoose
-mongoose.connect('mongodb+srv://Chmeh:Shlomo91@cluster0.k4k9j.mongodb.net/OcP6?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -29,8 +30,12 @@ const userRoutes = require('./routes/user');
 // Utilisation du Framework Express
 const app = express();
 
+app.use(ddos.express);
+
 // Middleware pour les headers de requêtes et éviter les erreurs CORS (une sécurité qui empêche les reqêtes mailleveilantes)
 // Ces middlewares seront appliqués à toutes les routes de l'application
+
+app.use(helmet());
 
 app.use((req, res, next) => {
 // rajout des headers pour permettre que tous les utilisateur depuis n'importe quel navigateur puissent faire les requêtes nécessaires pour accéder à notre api  
@@ -43,7 +48,7 @@ app.use((req, res, next) => {
 });
 
 // Traitement des sonnées par BodyParser pour donner accès au corps de la requête
-app.use(bodyParser.json());
+app.use(express.json());
 // Chemin virtuel pour les fichiers statiques tel que nos images
 app.use('/images', express.static(path.join(__dirname, 'images')));
 // Url des routes auquels l'aplication front fera appel
