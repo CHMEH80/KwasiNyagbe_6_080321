@@ -19,8 +19,8 @@ mongoose.connect('mongodb+srv://Chmeh:Shlomo91@cluster0.k4k9j.mongodb.net/OcP6?r
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
-const Sauce = require('./models/Sauce');
-const User = require('./models/User');
+// const Sauce = require('./models/Sauce');
+// const User = require('./models/User');
 
 // Routes 
 const sauceRoutes = require('./routes/sauce');

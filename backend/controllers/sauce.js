@@ -1,4 +1,4 @@
-
+// Implémentation de la logique de nos différentes fonctions
 // import du modèle Sauce
 const Sauce = require('../models/Sauce');
 
@@ -78,28 +78,38 @@ exports.modifyOneSauce = (req, res, next) => {
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
     if(!req.body.errorMessage) {
+     //   Methode pour mettre à jour une sauce dans la DB
+     // prend en argument 1 l'id de comparaison qui est égal à id qui est envoyé dans les paramètre de requête
+     // et en argument 2 la nouvelle version de l'objet avec l'utilisation de ... pour récupérer la sauce qui est
+     // dans le corps de la requête et ensuite dire que l'id correspond à celui des paramètres
         Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+     // retourne une promise  
         .then(() => {
             if(!req.file) {
+     // Réponse ok avec le message correspondant          
                 res.status(200).json({ message: "La sauce a bien été modifiée!"})
             } else {
+    // passe             
                 next();
             }
         })
+    // message d'erreur si objet ddéjà existant
         .catch(error => { 
             if(error.message.indexOf("duplicate key")>0) {
                 req.body.errorMessage = "Le nom de cette sauce existe déjà!";
             }
+    // passe
             next();
         })
     } else {
+    // passe
         next();
     }
 };
 
 // suppression de la sauce
 exports.deleteSauce = (req, res, next) => {
-    // avec comme paramètre l'identifiant qui va renvoyer l'i de l'objet 
+    // avec comme paramètre l'identifiant qui va renvoyer l'id de l'objet 
     Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
         const filename = sauce.imageUrl.split('/images/')[1];

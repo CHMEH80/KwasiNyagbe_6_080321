@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const mongooseUniqueValidator = require('mongoose-unique-validator');
 
 // Fonction shema de mongoose à laquelle on va passer un objet qui contiendra les différents champs requis que notre schema aura besoin
+// @ts-ignore
 const sauceSchema = mongoose.Schema ({
     userId: { type: String, required: true },
     name: { type: String, required: true, unique: true},

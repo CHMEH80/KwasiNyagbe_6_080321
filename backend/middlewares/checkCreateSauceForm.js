@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Contrôle regex pour la création d'une sauce
 
 const controleRegex = [/^[\wéèàêûçàôë]{2}[\w\s-'éèàêûñçàôë]{0,48}$/i,
