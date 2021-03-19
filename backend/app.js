@@ -4,10 +4,13 @@
 const express = require('express');
 
 // base de donées à laquelle l'Api est liée pour la rendre totalement dynamique
-const ddos        = require('ddos')({burst:10, limit:15});
+// const ddos        = require('ddos')({burst:10, limit:15});
 const helmet      = require("helmet");
 const mongoose    = require('mongoose');
 const path        = require('path');
+const morgan      = require('morgan');
+// @ts-ignore
+const winston     = require('./monitoring/configuration/winston');
 mongoose.set('useCreateIndex', true);
 
 
@@ -30,11 +33,12 @@ const userRoutes = require('./routes/user');
 // Utilisation du Framework Express
 const app = express();
 
-app.use(ddos.express);
+// app.use(ddos.express);
 
 // Middleware pour les headers de requêtes et éviter les erreurs CORS (une sécurité qui empêche les reqêtes mailleveilantes)
 // Ces middlewares seront appliqués à toutes les routes de l'application
 
+app.use(morgan('combined', {stream: winston.stream}));
 app.use(helmet());
 
 app.use((req, res, next) => {
@@ -51,9 +55,9 @@ app.use((req, res, next) => {
 app.use(express.json());
 // Chemin virtuel pour les fichiers statiques tel que nos images
 app.use('/images', express.static(path.join(__dirname, 'images')));
-// Url des routes auquels l'aplication front fera appel
+// Urls des routes auquels l'aplication front fera appel
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
-// export de la constante app pour accès depuis les autre fichiers
+// export de la constante app pour accès depuis les autres fichiers
 module.exports = app;
