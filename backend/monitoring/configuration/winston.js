@@ -30,7 +30,7 @@ const logger = winston.createLogger({
  * créer un objet de flux avec une fonction 'write' qui sera utilisée par le package 'morgan'
  */
 logger.stream = {
-    write: function (message, encoding) {
+    write: function (message) {
         logger.info(message);
     },
 };
