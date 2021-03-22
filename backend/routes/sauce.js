@@ -6,16 +6,18 @@ const sauceController = require('../controllers/sauce');
 // midlewares avec authentification pour sécuriser les connexions
 const auth = require('../middlewares/authentification');
 
-// midlewares pour la gestion des images
+// Import des différents middlewares
 const multer = require('../middlewares/multer-configuration');
 const likingAllgo = require('../middlewares/likingSystem');
 const getOldPicture = require('../middlewares/getOldPictureAfterUpdate');
-const checkLike = require('../middlewares/checkUserLiking');        // Désactivez l'option pour éviter d'aimer ou de ne pas aimer nos propres sauces*
+ // Désactive l'option pour éviter d'aimer ou de ne pas aimer nos propres sauces
+const checkLike = require('../middlewares/checkUserLiking');       
 const checkCreateForm = require('../middlewares/checkCreateSauceForm');
 const deletePictureNoConformForm = require('../middlewares/deletePictureNoConformForm');
 // Les différentes fichier de routes et les middlewares
 // appliquation des différentes fonctions à la route dédiée
 router.post('/', auth, multer, checkCreateForm, sauceController.createSauce, deletePictureNoConformForm);
+// routes pour le système de likes et dislikes
 router.post('/:id/like', auth, likingAllgo, sauceController.likeOneSauce);
 // route pour récupérer la liste de toutes les sauces
 router.get('/', auth, sauceController.getAllSauces);

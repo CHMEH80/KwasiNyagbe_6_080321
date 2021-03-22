@@ -1,10 +1,17 @@
-// détermine le chemin racine de l'app
+
+/**
+ * détermine le chemin racine de l'app
+ */
 var appRoot = require('app-root-path');
 
-// pour gérer les logs
+/**
+ * Package pour pour gérer les logs
+ */
 var winston = require('winston');
 
-
+/**
+ * création des logs et  des erreurs dans les fichier spécifiés
+ */
 const logger = winston.createLogger({
     transports: [
         new winston.transports.File({
@@ -18,11 +25,12 @@ const logger = winston.createLogger({
     ]
 });
 
-
-//créer un objet de flux avec une fonction 'write' qui sera utilisée par le package `morgan`
 // @ts-ignore
+/**
+ * créer un objet de flux avec une fonction 'write' qui sera utilisée par le package 'morgan'
+ */
 logger.stream = {
-    write: function(message, encoding) {
+    write: function (message, encoding) {
         logger.info(message);
     },
 };

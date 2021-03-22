@@ -1,4 +1,7 @@
-// Contrôle regex pour le renseignement de l'email
+/**
+ * Contrôle regex pour le renseignement de l'email et du password
+ *
+ */
 module.exports = (req, res, next) => {
   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/;
